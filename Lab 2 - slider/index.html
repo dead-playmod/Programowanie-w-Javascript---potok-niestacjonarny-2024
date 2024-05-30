@@ -2,33 +2,84 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <style>
-      .slider {
-        width: 900px;
-        height: 600px;
-        background: lightblue;
-      }
-      .box {
-        width: 90px;
-        height: 90px;
-        background: lightcoral;
-      }
-    </style>
+    <title>Vite + TS</title>
+    <script type="module" src="/src/main.ts" defer></script>
   </head>
   <body>
-    <main>
-      <div class="slider slide3">
-        <div class="box">
-        <!-- <img src="https://picsum.photos/800/600" alt="" />
-        <img src="https://picsum.photos/800/600" alt="" />
-        <img src="https://picsum.photos/800/600" alt="" />
-        <img src="https://picsum.photos/800/600" alt="" />
-        <img src="https://picsum.photos/800/600" alt="" />
-        <img src="https://picsum.photos/800/600" alt="" /> -->
+    <main class="wrapper">
+      <div data-slider>
+        <div data-slides>
+          <div>
+            <p>first slide</p>
+
+            <button>sample button</button>
+          </div>
+
+          <div>
+            <h2>second slide</h2>
+
+            <p>
+              lorem ipsum dolor sit amet consectetur adipisicing elit. amet
+              cupiditate voluptatem nihil veritatis aut architecto quis
+              doloremque at molestias iure rem, recusandae possimus porro
+              corrupti quidem ab dignissimos iusto beatae! nemo, minus dolorum
+              commodi a hic expedita deleniti accusantium error sit odio,
+              suscipit neque obcaecati corporis repellat, necessitatibus
+              perspiciatis similique! eligendi numquam, excepturi asperiores
+              sunt quis ducimus. necessitatibus, aut distinctio? ratione, est
+              earum similique minima ullam ipsam laboriosam rem facilis,
+              voluptates voluptate hic atque illo. suscipit deleniti quas magni
+              nobis hic vero labore voluptatem repudiandae, distinctio illum
+              numquam, sunt ex. dolorem sit rerum inventore cum, sapiente, enim
+              adipisci at a amet consequuntur excepturi eum laboriosam! earum
+              dolores minus quidem blanditiis fugit accusamus, corporis libero
+              incidunt dolorem odio repellendus est? ducimus? esse molestiae
+              repudiandae et odio quod dolorem mollitia suscipit quidem
+              voluptas, perspiciatis quia, eaque minus vero praesentium iure,
+              alias velit? facilis, illum ipsam! quos aspernatur nam libero
+              illum cum quibusdam? consectetur nostrum labore sint voluptatem,
+              odit voluptate debitis, vel inventore quam eius, vero dignissimos
+              quia aperiam sunt numquam consequuntur suscipit. explicabo
+              voluptate sint eum quas ipsam atque consequatur cumque tempore!
+              reprehenderit ut cum repudiandae voluptatibus, iste consequatur
+              explicabo ipsa, temporibus recusandae corporis eveniet
+              necessitatibus sit, nemo obcaecati ab magni delectus. aliquam
+              possimus excepturi minima illo a. quo soluta qui cumque. hic
+              ratione reprehenderit assumenda non maiores officia aliquid error
+              at numquam officiis laboriosam fugiat pariatur amet, possimus
+              doloremque ipsa quae eaque iure quos illo. quaerat ducimus illum
+              nostrum placeat ipsum. minima, qui quisquam aliquid, eligendi
+              corrupti dignissimos culpa, commodi aperiam necessitatibus
+              accusamus ut modi tempora expedita quae mollitia temporibus
+              sapiente fuga? omnis vero quod suscipit harum, unde maiores
+              excepturi fuga. rerum itaque explicabo, earum harum, pariatur ea
+              atque, officia eos cumque accusantium impedit fugiat vel quaerat
+              voluptatibus ipsa. id non ipsa necessitatibus harum corporis eius
+              dignissimos esse ea consequuntur blanditiis!
+            </p>
+          </div>
+
+          <div>Third slide</div>
+        </div>
+
+        <div data-controls></div>
+      </div>
+
+      <div style="height: 420px; width: 640px" data-slider-two>
+        <div data-slides>
+          <div>first slide</div>
+
+          <div>second slide</div>
+
+          <div>third slide</div>
+
+          <div>forth slide</div>
+        </div>
+
+        <div data-controls></div>
       </div>
     </main>
-    <script src="main.js" type="text/javascript"></script>
   </body>
 </html>

@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+:root {
+  --c-white: rgb(255, 236, 212);
+  --c-black: rgb(9, 0, 22);
+}
+
+body {
+  background-color: var(--c-black);
+  color: var(--c-white);
+  font-family: 'Lato', sans-serif;
+  font-weight: bolder;
+}
+
+* {
+  box-sizing: border-box;
+  font-weight: bolder;
+}
+
+button {
+  height: 1.6rem;
+  padding-block: 0.25rem;
+  padding-inline: 0.75rem;
+  position: relative;
+  background-color: var(--c-black);
+  color: var(--c-white);
+  border: 2px solid var(--c-white);
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  cursor: pointer;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  inset-inline: -2px;
+  top: 100%;
+  bottom: -6px;
+  background-color: var(--c-white);
+}
+
+button:hover {
+  transform: translateY(2px);
+}
+
+button:hover::before {
+  bottom: -4px;
+}
+
+button:active {
+  transform: translateY(4px);
+}
+
+button:active::before {
+  bottom: 0;
+}
+
+.wrapper {
+  padding: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.slider {
+  height: 320px;
+  width: 460px;
+  overflow: hidden;
+  position: relative;
+}
+
+.slider::after {
+  content: '';
+  height: 4px;
+  width: calc(var(--auto-play-progress, 0) * 1%);
+  position: absolute;
+  bottom: 0;
+  inset-inline: 0;
+  background-color: var(--c-white);
+}
+
+.slide-wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  position: absolute;
+  left: 0;
+  transition: left 300ms ease-out;
+}
+
+.slide {
+  height: 100%;
+  padding: 1rem;
+  flex: 1 0 100%;
+  background-color: var(--c-black);
+  border: 2px solid var(--c-white);
+  overflow-y: auto;
+}
+
+.controls {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  padding: 1rem;
+  background: linear-gradient(transparent 80%, var(--c-black) 100%);
+}
+
+.controls button {
+  width: 40px;
+}
+
+.auto-play-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.bullet-wrapper {
+  height: 30px;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  overflow-y: visible;
+  overflow-x: auto;
+}
