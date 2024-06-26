@@ -1,11 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    <script src="main.js"></script>
-</body>
+    <script src="main.js" defer></script>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <div class="app">
+      <form class="form" data-form>
+        <div class="form__title">
+          <label for="title">title</label>
+          <input type="text" id="title" name="title" required data-title />
+        </div>
+
+        <div class="form__content">
+          <label for="content">content</label>
+          <textarea
+            name="content"
+            id="content"
+            cols="30"
+            rows="10"
+            required
+            data-content
+          ></textarea>
+        </div>
+
+        <div class="form__pinned">
+          <label for="pinned">mark as pinned</label>
+          <input type="checkbox" name="pinned" id="pinned" data-pinned />
+        </div>
+
+        <div class="form__color">
+          <label for="color">note color</label>
+          <input
+            type="color"
+            name="color"
+            id="color"
+            value="#808080"
+            data-color
+          />
+        </div>
+
+        <div class="from__controls">
+          <button data-add>add note</button>
+
+          <button type="button" style="display: none" data-cancel>
+            cancel
+          </button>
+        </div>
+      </form>
+
+      <div class="notes" data-notes></div>
+    </div>
+  </body>
 </html>
