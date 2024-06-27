@@ -1,64 +1,57 @@
-const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+const data = Array.from({ length: 1_000 }, (_, i) => i + 1);
 
-await measurePerformance('add 1', () => addData1(data), data)
-await measurePerformance('add 2', () => addData2(data), data)
-await measurePerformance('add 3', () => addData3(data), data)
-
-// for z await
-async function addData1(data) {
-  let sum = 0
-  for (let item of data) {
-    sum = await asyncAdd(sum, item)
-  }
-  return sum
-}
-// reduce z sum jako Promise
-async function addData2(data) {
-  console.log('reduce start')
-  const resultPromise = data.reduce(async (sumPromise, item) => {
-    const sumValue = await sumPromise
-    return asyncAdd(sumValue, item)
-  }, 0)
-  console.log('reduce end')
-  return resultPromise
-}
-// równoległe operacje
-async function addData3(values) {
-  let data = [...values]
-
-  while (data.length > 1) {
-    let asyncTempSums = []
-    while (data.length > 0) {
-      if (data.length === 1) {
-        asyncTempSums.push(Promise.resolve(data.pop()))
-      } else {
-        const a = data.pop()
-        const b = data.pop()
-        asyncTempSums.push(asyncAdd(a, b))
-      }
-    }
-    data = await Promise.all(asyncTempSums)
-  }
-  return data.pop()
-}
-async function measurePerformance(name, cb) {
+/**
+ *
+ * @param {String} name
+ * @param {() => Promise<Number>} fn
+ */
+async function measurePerformance(name, fn) {
   console.log(`Start: ${name}`);
-  performance.mark('mf-start')
-  const result = await cb()
-  performance.mark('mf-end')
-  const runTime = performance.measure('Czas wykonania kodu', 'mf-start', 'mf-end')
-  console.log(`Wynik z ${name}: ${result}`)
-  console.log(`Czas wykonywania: ${runTime.duration.toFixed(2)}ms`)
+  performance.mark('mf-start');
+  const result = await fn();
+  performance.mark('mf-end');
+  const runTime = performance.measure(
+    'Czas wykonania kodu',
+    'mf-start',
+    'mf-end'
+  );
+  console.log(`Wynik z ${name}: ${result}`);
+  console.log(`Czas wykonywania: ${runTime.duration.toFixed(2)}ms`);
 }
-async function asyncAdd(a, b) {
-  console.count('[async add operation]')
-  if (typeof a !== 'number' || typeof b !== 'number') {
-    console.log('err', { a, b })
-    return Promise.reject('Argumenty muszą mieć typ number!')
-  }
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(a + b)
-    }, 10)
-  })
-}
+
+/**
+ * @param {Number} a
+ * @param {Number} b
+ * @returns {Promise<Number>}
+ */
+const asyncAdd = (a, b) => new Promise((res) => setTimeout(res(a + b), 100));
+
+/**
+ * @param {Number[]} data
+ * @returns {Number}
+ */
+const reduceAdd = async (data) =>
+  data.reduce(async (prev, curr) => await asyncAdd(await prev, curr), 0);
+
+/**
+ * @param {Number[]} data
+ * @returns {Promise<Number>}
+ */
+const parallelAdd = async (data) => {
+  if (data.length === 2) return await asyncAdd(...data);
+
+  const promises = Array.from(
+    {
+      length: Math.floor(data.length / 2),
+    },
+    (_, i) => asyncAdd(data[i * 2], data[i * 2 + 1])
+  );
+  const values = await Promise.all(promises);
+
+  if (data.length % 2 === 0) return await parallelAdd(values);
+
+  return await parallelAdd([...values, data.at(-1)]);
+};
+
+await measurePerformance('reduceAdd', () => reduceAdd(data));
+await measurePerformance('parallelAdd', () => parallelAdd(data));
