@@ -106,10 +106,12 @@ button:active::before {
   gap: 1rem;
   padding: 1rem;
   background: linear-gradient(transparent 80%, var(--c-black) 100%);
+  pointer-events: none;
 }
 
 .controls button {
   width: 40px;
+  pointer-events: all;
 }
 
 .auto-play-button {

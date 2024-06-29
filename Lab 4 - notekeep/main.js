@@ -3,6 +3,7 @@
  * @property {Number} id
  * @property {String} title
  * @property {String} content
+ * @property {String} tag
  * @property {String} color
  * @property {Boolean} pinned
  * @property {Number} createdAt
@@ -18,6 +19,8 @@ const app = {
   /** @type {HTMLTextAreaElement} */
   content: document.querySelector('[data-content]'),
   /** @type {HTMLInputElement} */
+  tag: document.querySelector('[data-tag]'),
+  /** @type {HTMLInputElement} */
   pinned: document.querySelector('[data-pinned]'),
   /** @type {HTMLInputElement} */
   color: document.querySelector('[data-color]'),
@@ -27,6 +30,8 @@ const app = {
   add: document.querySelector('[data-add]'),
   /** @type {HTMLButtonElement} */
   cancel: document.querySelector('[data-cancel]'),
+  /** @type {HTMLInputElement} */
+  search: document.querySelector('[data-search]'),
 };
 
 const notes = {
@@ -52,6 +57,7 @@ const notes = {
 
 /** @type {null | Number} */
 let edit = null;
+let searchStr = '';
 
 /**
  *
@@ -92,6 +98,7 @@ const editNote = (i) => {
   const note = notes.value[i];
 
   app.title.value = note.title;
+  app.tag.value = note.tag;
   app.content.value = note.content;
   app.pinned.checked = note.pinned;
   app.color.value = note.color;
@@ -105,12 +112,19 @@ const editNote = (i) => {
 
 const renderNotes = () => {
   app.notes.innerHTML = '';
-  notes.value.forEach((note, i) => {
-    const div = document.createElement('div');
-    const date = new Date(note.createdAt);
+  notes.value
+    .filter(
+      (note) =>
+        note.title.includes(searchStr) ||
+        note.content.includes(searchStr) ||
+        note.tag.includes(searchStr)
+    )
+    .forEach((note, i) => {
+      const div = document.createElement('div');
+      const date = new Date(note.createdAt);
 
-    div.style = `--border-color: ${note.color}50; --background-color: ${note.color}40;`;
-    div.innerHTML = `
+      div.style = `--border-color: ${note.color}50; --background-color: ${note.color}40;`;
+      div.innerHTML = `
       <div class="note__top">
         <span class="note__title">${note.title}</span>
 
@@ -123,6 +137,8 @@ const renderNotes = () => {
 
       <span class="note__date">${date.toLocaleDateString()}</span>
 
+      <span>${note.tag}</span>
+
       <p class="note__content">${note.content}</p>
 
       <div class="note__controls">
@@ -130,27 +146,28 @@ const renderNotes = () => {
         <button data-remove>🗑️</button>
       </div>
     `;
-    div.classList.add('note');
+      div.classList.add('note');
 
-    div
-      .querySelector('[data-pinned]')
-      .addEventListener('click', () => pinNote(i));
+      div
+        .querySelector('[data-pinned]')
+        .addEventListener('click', () => pinNote(i));
 
-    div
-      .querySelector('[data-edit]')
-      .addEventListener('click', () => editNote(i));
+      div
+        .querySelector('[data-edit]')
+        .addEventListener('click', () => editNote(i));
 
-    div
-      .querySelector('[data-remove]')
-      .addEventListener('click', () => removeNote(i));
+      div
+        .querySelector('[data-remove]')
+        .addEventListener('click', () => removeNote(i));
 
-    app.notes.appendChild(div);
-  });
+      app.notes.appendChild(div);
+    });
 };
 
 const clearForm = () => {
   app.title.value = '';
   app.content.value = '';
+  app.tag.value = '';
   app.pinned.checked = false;
   app.color.value = '#808080';
 };
@@ -159,6 +176,7 @@ const submit = () => {
   const note = {
     title: app.title.value,
     content: app.content.value,
+    tag: app.tag.value,
     pinned: app.pinned.checked,
     color: app.color.value,
     createdAt: Date.now(),
@@ -190,6 +208,13 @@ const init = () => {
     app.cancel.style = 'display: none;';
     app.add.innerText = 'add note';
     clearForm();
+  });
+  app.search.addEventListener('input', (e) => {
+    /** @type {HTMLInputElement} */
+    const target = e.target;
+
+    searchStr = target.value;
+    renderNotes();
   });
   renderNotes();
 };

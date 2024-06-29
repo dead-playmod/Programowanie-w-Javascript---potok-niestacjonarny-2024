@@ -151,3 +151,11 @@ input[type='color']::-webkit-color-swatch {
 .note__controls button {
   flex-grow: 1;
 }
+
+.search {
+  width: 50%;
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
