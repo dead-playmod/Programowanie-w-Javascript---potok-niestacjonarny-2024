@@ -1,11 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    <script src="index.js"></script>
-</body>
+    <script src="index.js" defer></script>
+  </head>
+  <body
+    style="
+      width: 100vw;
+      height: 100vh;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #302342;
+    "
+  >
+    <div
+      style="
+        color: #f8bad1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0.25rem 0.75rem;
+        font-size: 2rem;
+        font-weight: bold;
+      "
+    >
+      <p style="margin: 0">score: <span data-score>0</span></p>
+
+      <p style="margin: 0">time: <span data-time>60</span>s</p>
+    </div>
+
+    <canvas
+      width="1280"
+      height="720"
+      style="
+        background-color: #f8bad1;
+        border: 5px solid #111237;
+        border-radius: 0.5rem;
+      "
+      data-canvas
+    ></canvas>
+
+    <div
+      style="
+        position: absolute;
+        font-size: 3rem;
+        font-weight: bold;
+        display: none;
+        align-items: center;
+        flex-direction: column;
+      "
+      data-game-over
+    >
+      <p style="margin: 0; -webkit-text-stroke: 1px black; color: white">
+        Game over
+      </p>
+
+      <button
+        style="
+          font-size: 3rem;
+          background-color: transparent;
+          border: none;
+          cursor: pointer;
+        "
+        onclick="window.location.reload()"
+      >
+        🔄️
+      </button>
+    </div>
+
+    <p
+      style="
+        margin: 0.25rem 0.75rem;
+        position: absolute;
+        bottom: 0;
+        color: #f8bad1;
+        font-size: 2rem;
+        font-weight: bold;
+      "
+    >
+      Notatka: testowane w dev tools w orientacji portretowej
+    </p>
+  </body>
 </html>
